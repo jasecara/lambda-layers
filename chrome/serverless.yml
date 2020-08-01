@@ -1,0 +1,17 @@
+service: lambda-layer-chrome
+frameworkVersion: ">=1.34.0 <2.0.0"
+provider:
+  name: aws
+  stage: "${opt:stage,'dev'}"
+  stackName: lambda-layer-chrome-${self:provider.stage}
+layers:
+  NodeChrome:
+    name: lambda-layer-node-chrome-${self:provider.stage}
+    path: layer
+    package:
+      include:
+        - node_modules/**
+    description: chrome@0.0.0
+    compatibleRuntimes:
+      - nodejs12.x
+    retain: true
