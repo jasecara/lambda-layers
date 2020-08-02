@@ -1,0 +1,17 @@
+service: lambda-layer-ghost-script
+frameworkVersion: ">=1.34.0 <2.0.0"
+provider:
+  name: aws
+  stage: "${opt:stage,'dev'}"
+  stackName: lambda-layer-ghost-script-${self:provider.stage}
+layers:
+  NodeGhostScript:
+    name: lambda-layer-node-ghost-script-${self:provider.stage}
+    path: layer
+    package:
+      include:
+        - node_modules/**
+    description: ghostscript@v9.52
+    compatibleRuntimes:
+      - nodejs12.x
+    retain: true
